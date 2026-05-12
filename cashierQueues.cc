@@ -1,5 +1,5 @@
 #include <omnetpp.h>
-#include "Job.h"
+#include "Job.h" //from queueinglib
 
 using namespace omnetpp;
 using namespace queueing;
@@ -15,10 +15,10 @@ class ShoppingDelay : public cSimpleModule {
         else {
             Job *job = check_and_cast<Job *>(msg);
 
-            int items = intuniform(1, 50);
+            int items = intuniform(1, 40);
             job->addPar("numItems") = (long)items;
 
-            simtime_t delay = (items * 2.0) + uniform(60, 300);
+            simtime_t delay = (items * 2.0) + uniform(60, 200);
 
             EV_INFO << "Customer " << job->getName() << " shopping with " << items << " items.\n";
 
@@ -37,7 +37,7 @@ class ItemClassifier : public cSimpleModule {
 
         long items = job->hasPar("numItems") ? job->par("numItems").longValue() : 0;
 
-        int gateIndex = (items < 10) ? 0 : 1;
+        int gateIndex = (items < 15) ? 0 : 1;
 
         EV_INFO << "Routing " << job->getName() << " to gate " << gateIndex << " (" << items << " items)\n";
         send(job, "out", gateIndex);
