@@ -27,7 +27,7 @@ network cashierQueues
     parameters:
         int numCashiers = default(7);
         int numSelfCheckouts = default(3);
-        @display("bgb=1150,1400");
+        @display("bgb=1150,1600");
     submodules:
         entrance: Source {
             @display("p=50,300;i=block/source");
